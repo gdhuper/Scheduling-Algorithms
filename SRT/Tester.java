@@ -20,10 +20,10 @@ public class Tester {
 
     private static Process[] createProcesses() {
         Process[] p = new Process[JOB_COUNT];
+        Random rand = new Random();
         for (int i = 0; i < p.length; i++) {
-            Random rand = new Random();
             int arrivalTime = rand.nextInt(MAX_ARRIVAL_TIME + 1);
-            double serviceTime = rand.nextInt(100 + 1) / 10.0;
+            double serviceTime = (rand.nextInt(100) + 1) / 10.0;
             int priority = rand.nextInt(4) + 1;
 
             p[i] = new Process(arrivalTime, serviceTime, priority);
