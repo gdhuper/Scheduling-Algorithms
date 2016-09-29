@@ -15,8 +15,9 @@ public class Tester {
         createProcesses(processes);
         ShortestRemainingTime srt = new ShortestRemainingTime();
 
+        System.out.println("Shortest Remaining Time\n");
         for (Process p : processes) {
-            System.out.println(p.toString());
+            System.out.println(p.toString() + "\n");
         }
 
         int scheduledCount = 0;
@@ -43,6 +44,7 @@ public class Tester {
 
             srt.incrementRunTime();
         }
+        srt.printStatistics();
     }
 
     /**

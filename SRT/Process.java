@@ -3,11 +3,14 @@
  */
 public class Process implements Comparable<Process> {
 
-    private int arrivalTime;
+    private final int arrivalTime;
+    private final int priority;
+    private final char id;
     private double serviceTime;
-    private int priority;
-    private char id;
     private boolean hasBeenRun;
+    private int startTime;
+    private int endTime;
+    private int waiting;
 
     public Process(int arrivalTime, double serviceTime, int priority, char id) {
         this.arrivalTime = arrivalTime;
@@ -16,6 +19,9 @@ public class Process implements Comparable<Process> {
         this.id = id;
 
         hasBeenRun = false;
+        startTime = 0;
+        endTime = 0;
+        waiting = 0;
     }
 
     public int getArrivalTime() {
@@ -32,6 +38,24 @@ public class Process implements Comparable<Process> {
 
     public void decrementServiceTime() {
         serviceTime--;
+    }
+
+    public void incrementWaitingTime() {
+        waiting++;
+    }
+
+    public int getWaitTime() {
+        return waiting;
+    }
+
+    public int getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(int time) {
+        if (!hasBeenRun) {
+            startTime = time;
+        }
         hasBeenRun = true;
     }
 
@@ -45,11 +69,19 @@ public class Process implements Comparable<Process> {
 
     @Override
     public String toString() {
-        return "ID: " + id + "\nArrival: " + arrivalTime + "\nService: " + serviceTime + "\nPriority: " + priority + "\n";
+        return "ID: " + id + "\nArrival: " + arrivalTime + "\nService: " + serviceTime + "\nPriority: " + priority;
     }
 
     @Override
     public int compareTo(Process o) {
         return arrivalTime - o.arrivalTime;
+    }
+
+    public int getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(int endTime) {
+        this.endTime = endTime;
     }
 }

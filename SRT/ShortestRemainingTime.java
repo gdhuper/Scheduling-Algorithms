@@ -8,9 +8,10 @@ import java.util.Comparator;
 public class ShortestRemainingTime {
 
     private Process runningProcess;
+    private int runTime = 0;
     private ArrayList<Process> queuedProcesses = new ArrayList<>();
+    private ArrayList<Process> completedProcesses = new ArrayList<>();
     private boolean maxQuantaReached = false;
-    private int processedCount = 0;
 
     /**
      * Schedule a new process.
@@ -30,11 +31,11 @@ public class ShortestRemainingTime {
             // time and schedule it and add old process to
             // queue, else add new process to queue.
             if (newProcess.getServiceTime() < runningProcess.getServiceTime()) {
-                addToQueue(queuedProcesses, runningProcess);
+                addToQueue(runningProcess);
 
                 runningProcess = newProcess;
             } else {
-                addToQueue(queuedProcesses, newProcess);
+                addToQueue(newProcess);
             }
         } else {
             // No running process.
@@ -42,7 +43,9 @@ public class ShortestRemainingTime {
         }
 
         // Add remaining processes to queue.
-        newProcesses.forEach(process -> addToQueue(queuedProcesses, process));
+        newProcesses.forEach(this::addToQueue);
+
+        runningProcess.setStartTime(runTime);
     }
 
     /**
@@ -50,6 +53,10 @@ public class ShortestRemainingTime {
      * service time left by 1 quanta for running process.
      */
     public void incrementRunTime() {
+        runTime++;
+        // Increment waiting time for each process in queue.
+        queuedProcesses.forEach(Process::incrementWaitingTime);
+
         if (runningProcess != null) {
             System.out.print(runningProcess.getId());
             runningProcess.decrementServiceTime();
@@ -74,13 +81,33 @@ public class ShortestRemainingTime {
     }
 
     /**
+     * Get statistics for algorithm.
+     */
+    public void printStatistics() {
+        double avgWait, avgResp, avgTurn;
+        avgWait = avgResp = avgTurn = 0;
+
+        for (Process p : completedProcesses) {
+            avgWait += p.getWaitTime();
+            avgResp += p.getStartTime() - p.getArrivalTime();
+            avgTurn += p.getEndTime() - p.getArrivalTime();
+        }
+        avgWait /= completedProcesses.size();
+        avgResp /= completedProcesses.size();
+        avgTurn /= completedProcesses.size();
+
+        System.out.println("\n\nAvg wait: " + avgWait + "\nAvg response: " +
+                avgResp + "\nAvg turnaround: " + avgTurn +
+                "\nThroughput: " + completedProcesses.size());
+    }
+
+    /**
      * Add process to queue and sort by increasing service time.
-     * @param pList the list to add the process to
      * @param p the process to add
      */
-    private void addToQueue(ArrayList<Process> pList, Process p) {
-        pList.add(p);
-        Collections.sort(pList, new SRTComparator());
+    private void addToQueue(Process p) {
+        queuedProcesses.add(p);
+        Collections.sort(queuedProcesses, new SRTComparator());
     }
 
     /**
@@ -90,6 +117,8 @@ public class ShortestRemainingTime {
     private void checkRunningProcessStatus() {
         // Process is done. Reschedule from queue.
         if (runningProcess.isComplete()) {
+            runningProcess.setEndTime(runTime);
+            completedProcesses.add(runningProcess);
             runningProcess = null;
 
             // Max quanta reached. Run only previously ran processes.
@@ -105,15 +134,9 @@ public class ShortestRemainingTime {
             } else if (!queuedProcesses.isEmpty()) {
                 // Fetch process from queue if not empty.
                 runningProcess = queuedProcesses.remove(0);
+                runningProcess.setStartTime(runTime);
             }
-
-            processedCount++;
         }
-    }
-
-    @Override
-    public String toString() {
-        return "";
     }
 
     public class SRTComparator implements Comparator<Process> {
