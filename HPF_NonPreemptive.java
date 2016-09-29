@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;	
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -12,14 +13,15 @@ public class HPF_NonPreemptive {
 	static List<Process> recordQ = new ArrayList<Process>();
 
 	static List<Process> finishedQueue = new ArrayList<Process>();
+	static HashMap<String, Float> map = new HashMap<String, Float>();
 
-    static List<Float> bT = new ArrayList<Float>();
+    static List<Float> cT = new ArrayList<Float>();
     
     static float timeLapsed = 1;
     static int startIdx = 0;
     static int endIdx = 0;
 	static int processes = 99;
-	
+	static boolean allProcessesArrived = false;
 	
 	
 	
@@ -37,24 +39,40 @@ public class HPF_NonPreemptive {
 	
 	public static void startHPF(List<Process> readyQ, int startIndex)
 	{
-		
+		   
+		if(bufferQueue.size() == 99)
+		{
+			executeRemainingProcesses();
+		}
+		else{
 			Process temp = readyQ.get(startIndex);
-			temp.setFinished(true);
-			finishedQueue.add(temp);
-			recordQ.add(temp); //for keeping track of index
-			if(bT.isEmpty())
-			{
 			
-			bT.add((float) 0);
-			bT.add(temp.getExpRunTime());
-			System.out.println(bT);
-			}
-			else if(!bT.isEmpty())
+			temp.setFinished(true);
+			
+			finishedQueue.add(temp); //Keeping track of finished processes
+			recordQ.add(temp); //for keeping track of index
+			
+			
+			//Adding completion time of each process to the list
+			if(cT.isEmpty())
 			{
-				bT.add(bT.get(bT.size()-1) + temp.getExpRunTime());
-				System.out.println(bT);
-
+			cT.add((float) 0);
+			cT.add(temp.getExpRunTime());
+			addToMap(temp.getName(), temp.getExpRunTime());
+			System.out.println(cT);
 			}
+			
+			else if(!cT.isEmpty())
+			{
+				cT.add(cT.get(cT.size()-1) + temp.getExpRunTime());
+				addToMap(temp.getName(), (cT.get(cT.size()-1) + temp.getExpRunTime()));
+
+				System.out.println(cT);
+			}
+			
+			/////////////////////////////////////////
+			
+			
 			
 			if(startIdx == 0)
 			{
@@ -62,55 +80,49 @@ public class HPF_NonPreemptive {
 				System.out.println("in startINdex 0 state");
 
 			}
-			else if(startIdx != 0 && (endIdx + 1) <= 100)
+			else if(startIdx != 0 && (endIdx + 1) <= 99)
 			{
 				startIdx = endIdx  + 1;
 				System.out.println("in startINdex : " + startIdx);
 			}
-			else if(startIdx > 100)
+			else if(startIdx > 99)
 			{
+				executeRemainingProcesses();
+
 				return;
 			}
 			
 			
 			if(endIdx == 0)
 			{
-				endIdx = (startIdx + (int) temp.getExpRunTime()) - 1;
+				endIdx = (int) ((startIdx + Math.ceil((double)temp.getExpRunTime())) - 1);
 				System.out.println("in edndIDx 0 state : " + endIdx);
 
 			}
-			else if(endIdx != 0 && (startIdx + temp.getExpRunTime() <=100) && startIdx != 100)
+			else if(endIdx != 0 && (startIdx + Math.ceil((double)temp.getExpRunTime())) - 1 <=99)
 			{
-				endIdx = (startIdx + (int) temp.getExpRunTime());
+				endIdx = (int) (startIdx + Math.ceil((double)temp.getExpRunTime()) - 1);
 				System.out.println("in endINdex : " + endIdx);
 
 			}
-			else if(endIdx > 100)
+			else if(endIdx > 99)
 			{
 				System.out.println("All processes arrived");
 				return;
 			}
 			
-			if(startIdx < 100 && endIdx <=100)
+			if(startIdx < 99 && endIdx < 99)
 			{
 			addProcessesArrived(startIdx, endIdx);
 			}
-			else if (startIdx == 100)
+			else if (startIdx == 99)
 			{
 				bufferQueue.add(waitQueue.get(99));
-				startHPF(bufferQueue, 0);
 				
+				executeRemainingProcesses();
 			}
+		}
 			
-			//printList(bufferQueue);
-
-
-		
-		//printList(waitQueue);
-		//printList(bufferQueue);
-		
-		
-		
 		
 	}
 	
@@ -119,7 +131,9 @@ public class HPF_NonPreemptive {
 	
 	public static void addProcessesArrived(int start, int end)
 	{
-		
+		//if(allProcessesArrived == false)
+		//{
+		if(end < waitQueue.size() - 1){
 		for(int  i = start; i <= end; i++)
 		{
 			recordQ.add(waitQueue.get(i));
@@ -128,11 +142,12 @@ public class HPF_NonPreemptive {
 			
 		}
 		
+		
 		Process.sortByAt(bufferQueue);
 		Process.sortByPriority(bufferQueue);
 		
 		
-		if(bufferQueue.size() < waitQueue.size())
+		if(bufferQueue.size() < waitQueue.size()  - 1)
 		{
 			startHPF(bufferQueue, 0);
 		}
@@ -142,8 +157,39 @@ public class HPF_NonPreemptive {
 			printList(bufferQueue);
 			return;
 		}
-
 		
+		}
+		else
+		{
+			return;
+		}
+		
+	}
+	
+	public static void executeRemainingProcesses()
+	{
+		for(int i = 0; i < bufferQueue.size(); i++)
+		{
+			Process temp = bufferQueue.get(i);
+			if(temp.isFinished() == true)
+			{
+				continue;
+			}
+			else if(temp.isFinished() == false)
+			{
+				temp.setFinished(true);
+				cT.add(cT.get(cT.size()-1) + temp.getExpRunTime());
+				addToMap(temp.getName(), (cT.get(cT.size()-1) + temp.getExpRunTime()));
+				
+			}
+		}
+		
+	}
+	
+	
+	public static void addToMap(String key, float value)
+	{
+		map.put(key, value);
 	}
 	
 
@@ -187,8 +233,8 @@ public class HPF_NonPreemptive {
 	{
 		HPF_NonPreemptive npa = new HPF_NonPreemptive();
 
-		npa.printList(waitQueue);
-		npa.startHPF(waitQueue, 0);
+		//HPF_NonPreemptive.printList(waitQueue);
+		HPF_NonPreemptive.startHPF(waitQueue, 0);
 		
 	}
 }
