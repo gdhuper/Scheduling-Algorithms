@@ -51,7 +51,7 @@ public class Tester {
         ShortestRemainingTime srt = new ShortestRemainingTime();
         int scheduledCount = 0;
 
-        for (int i = 0; i <= MAX_ARRIVAL_TIME || (scheduledCount != 0 && srt.hasRemainingJobs()); i++) {
+        for (int i = 0; i <= MAX_ARRIVAL_TIME || srt.hasRemainingJobs(); i++) {
             if (i <= MAX_ARRIVAL_TIME) {
                 // Multiple jobs may have same arrival time.
                 // Make sure to schedule them all.

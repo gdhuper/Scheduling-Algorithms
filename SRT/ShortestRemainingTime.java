@@ -45,8 +45,6 @@ public class ShortestRemainingTime {
 
         // Add remaining processes to queue.
         newProcesses.forEach(this::addToQueue);
-
-        runningProcess.setStartTime(runTime);
     }
 
     /**
@@ -60,7 +58,7 @@ public class ShortestRemainingTime {
 
         if (runningProcess != null) {
             System.out.print(runningProcess.getId());
-            runningProcess.decrementServiceTime();
+            runningProcess.executeProcess(runTime);
             checkRunningProcessStatus();
         }
     }
@@ -119,27 +117,26 @@ public class ShortestRemainingTime {
      * reschedule from queue or set to null.
      */
     private void checkRunningProcessStatus() {
+        if (!runningProcess.isComplete()) return;
+
         // Process is done. Reschedule from queue.
-        if (runningProcess.isComplete()) {
-            runningProcess.setEndTime(runTime);
-            completedProcesses.add(runningProcess);
-            runningProcess = null;
+        runningProcess.setEndTime(runTime);
+        completedProcesses.add(runningProcess);
+        runningProcess = null;
 
-            // Max quanta reached. Run only previously ran processes.
-            if (maxQuantaReached) {
-                while (!queuedProcesses.isEmpty()){
-                    Process queuedProcess = queuedProcesses.remove(0);
+        // Max quanta reached. Run only previously ran processes.
+        if (maxQuantaReached) {
+            while (!queuedProcesses.isEmpty()){
+                Process queuedProcess = queuedProcesses.remove(0);
 
-                    if (queuedProcess.hasBeenRun()) {
-                        runningProcess = queuedProcess;
-                        break;
-                    }
+                if (queuedProcess.hasBeenRun()) {
+                    runningProcess = queuedProcess;
+                    break;
                 }
-            } else if (!queuedProcesses.isEmpty()) {
-                // Fetch process from queue if not empty.
-                runningProcess = queuedProcesses.remove(0);
-                runningProcess.setStartTime(runTime);
             }
+        } else if (!queuedProcesses.isEmpty()) {
+            // Fetch process from queue if not empty.
+            runningProcess = queuedProcesses.remove(0);
         }
     }
 

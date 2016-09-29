@@ -56,10 +56,16 @@ public class Process implements Comparable<Process> {
     }
 
     /**
-     * Decrements the service time by 1 quanta.
+     * Decrements the service time by 1 quanta and
+     * sets the start time if not ran before.
      */
-    public void decrementServiceTime() {
+    public void executeProcess(int time) {
         serviceTime--;
+
+        if (!hasBeenRun) {
+            startTime = time;
+            hasBeenRun = true;
+        }
     }
 
     /**
@@ -83,17 +89,6 @@ public class Process implements Comparable<Process> {
      */
     public int getStartTime() {
         return startTime;
-    }
-
-    /**
-     * Sets the start time of the process in quanta.
-     * @param time the start time in quanta
-     */
-    public void setStartTime(int time) {
-        if (!hasBeenRun) {
-            startTime = time;
-        }
-        hasBeenRun = true;
     }
 
     /**
