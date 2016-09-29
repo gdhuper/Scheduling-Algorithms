@@ -15,6 +15,7 @@ public class ShortestRemainingTime {
 
     /**
      * Schedule a new process.
+     *
      * @param newProcesses the processes to schedule
      */
     public void schedule(ArrayList<Process> newProcesses) {
@@ -55,7 +56,7 @@ public class ShortestRemainingTime {
     public void incrementRunTime() {
         runTime++;
         // Increment waiting time for each process in queue.
-        queuedProcesses.forEach(Process::incrementWaitingTime);
+        queuedProcesses.forEach(Process::incrementWaitTime);
 
         if (runningProcess != null) {
             System.out.print(runningProcess.getId());
@@ -73,10 +74,13 @@ public class ShortestRemainingTime {
 
     /**
      * Check if jobs are still running or in queue.
+     *
      * @return whether any jobs have yet to complete
      */
     public boolean hasRemainingJobs() {
+        // Only check running process if max quanta reached.
         if (maxQuantaReached) return runningProcess != null;
+
         return runningProcess != null || !queuedProcesses.isEmpty();
     }
 
@@ -96,13 +100,13 @@ public class ShortestRemainingTime {
         avgResp /= completedProcesses.size();
         avgTurn /= completedProcesses.size();
 
-        System.out.println("\n\nAvg wait: " + avgWait + "\nAvg response: " +
-                avgResp + "\nAvg turnaround: " + avgTurn +
-                "\nThroughput: " + completedProcesses.size());
+        System.out.printf("\n\nAvg wait: %f\nAvg response: %f\nAvg turnaround: %f\nThroughput: %d\n\n",
+                avgWait, avgResp, avgTurn, completedProcesses.size());
     }
 
     /**
      * Add process to queue and sort by increasing service time.
+     *
      * @param p the process to add
      */
     private void addToQueue(Process p) {
@@ -123,7 +127,7 @@ public class ShortestRemainingTime {
 
             // Max quanta reached. Run only previously ran processes.
             if (maxQuantaReached) {
-                for (int i = 0; i < queuedProcesses.size(); i++) {
+                while (!queuedProcesses.isEmpty()){
                     Process queuedProcess = queuedProcesses.remove(0);
 
                     if (queuedProcess.hasBeenRun()) {
