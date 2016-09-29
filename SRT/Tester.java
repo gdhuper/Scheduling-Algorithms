@@ -1,12 +1,13 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
 /**
- * Created by Jaylan Tse on 9/27/2016.
+ * Tester for shortest remaining time.
  */
 public class Tester {
 
-    private static final int JOB_COUNT = 20;
+    private static final int JOB_COUNT = 30;
     private static final int MAX_ARRIVAL_TIME = 99;
 
     public static void main(String[] args) {
@@ -19,25 +20,35 @@ public class Tester {
         }
 
         int scheduledCount = 0;
-        for (int i = 0; i <= MAX_ARRIVAL_TIME || srt.hasRemainingJobs(); i++) {
+        for (int i = 0; i <= MAX_ARRIVAL_TIME || (scheduledCount != 0 && srt.hasRemainingJobs()); i++) {
             if (i <= MAX_ARRIVAL_TIME) {
                 // Multiple jobs may have same arrival time.
                 // Make sure to schedule them all.
+                ArrayList<Process> newProcesses = new ArrayList<>();
                 while (scheduledCount != JOB_COUNT) {
                     Process nextProcess = processes[scheduledCount];
                     if (nextProcess.getArrivalTime() == i) {
-                        srt.schedule(nextProcess);
+                        newProcesses.add(nextProcess);
                         scheduledCount++;
                     } else {
                         break;
                     }
                 }
+                if (!newProcesses.isEmpty()) {
+                    srt.schedule(newProcesses);
+                }
+            } else {
+                srt.stopNewProcesses();
             }
 
             srt.incrementRunTime();
         }
     }
 
+    /**
+     * Create processes and add to array.
+     * @param p the array of processes
+     */
     private static void createProcesses(Process[] p) {
         Random rand = new Random();
         for (int i = 0; i < p.length; i++) {

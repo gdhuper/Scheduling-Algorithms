@@ -1,70 +1,128 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 /**
- * Created by Jaylan Tse on 9/27/2016.
+ * Shortest remaining time process scheduler.
  */
 public class ShortestRemainingTime {
 
-    private int runTime;
-    private Process currentProcess;
-    private ArrayList<Process> queuedProcesses;
-    private boolean hasScheduledJob;
+    private Process runningProcess;
+    private ArrayList<Process> queuedProcesses = new ArrayList<>();
+    private boolean maxQuantaReached = false;
+    private int processedCount = 0;
 
-    public ShortestRemainingTime() {
-        runTime = 0;
-        queuedProcesses = new ArrayList<>();
-        hasScheduledJob = false;
-    }
+    /**
+     * Schedule a new process.
+     * @param newProcesses the processes to schedule
+     */
+    public void schedule(ArrayList<Process> newProcesses) {
+        if (newProcesses.isEmpty()) return;
 
-    public void schedule(Process newProcess) {
-        if (currentProcess != null) {
+        // Sort new processes by increasing service time.
+        Collections.sort(newProcesses, new SRTComparator());
+        // Grab process with shortest service time.
+        Process newProcess = newProcesses.remove(0);
+
+        if (runningProcess != null) {
             // If there is a current running process,check
             // if the new process has a lower service
             // time and schedule it and add old process to
             // queue, else add new process to queue.
-            if (newProcess.getServiceTime() < currentProcess.getServiceTime()) {
-                addToQueue(currentProcess);
-                currentProcess = newProcess;
+            if (newProcess.getServiceTime() < runningProcess.getServiceTime()) {
+                addToQueue(queuedProcesses, runningProcess);
+
+                runningProcess = newProcess;
             } else {
-                addToQueue(newProcess);
+                addToQueue(queuedProcesses, newProcess);
             }
         } else {
             // No running process.
-            currentProcess = newProcess;
+            runningProcess = newProcess;
         }
-        hasScheduledJob = true;
+
+        // Add remaining processes to queue.
+        newProcesses.forEach(process -> addToQueue(queuedProcesses, process));
     }
 
+    /**
+     * Increment run time by 1 quanta and decrement remaining
+     * service time left by 1 quanta for running process.
+     */
     public void incrementRunTime() {
-        runTime++;
-        if (currentProcess != null) {
-            System.out.print(currentProcess.getId());
-            currentProcess.decrementServiceTime();
-            checkProcessStatus();
+        if (runningProcess != null) {
+            System.out.print(runningProcess.getId());
+            runningProcess.decrementServiceTime();
+            checkRunningProcessStatus();
         }
     }
 
-    public boolean hasRemainingJobs() {
-        return currentProcess != null || !queuedProcesses.isEmpty() || !hasScheduledJob;
+    /**
+     * Do not execute any new processes from queue.
+     */
+    public void stopNewProcesses() {
+        maxQuantaReached = true;
     }
 
-    private void addToQueue(Process p) {
-        queuedProcesses.add(p);
-        Collections.sort(queuedProcesses, (o1, o2) -> {
+    /**
+     * Check if jobs are still running or in queue.
+     * @return whether any jobs have yet to complete
+     */
+    public boolean hasRemainingJobs() {
+        if (maxQuantaReached) return runningProcess != null;
+        return runningProcess != null || !queuedProcesses.isEmpty();
+    }
+
+    /**
+     * Add process to queue and sort by increasing service time.
+     * @param pList the list to add the process to
+     * @param p the process to add
+     */
+    private void addToQueue(ArrayList<Process> pList, Process p) {
+        pList.add(p);
+        Collections.sort(pList, new SRTComparator());
+    }
+
+    /**
+     * Check if currently running process is complete and
+     * reschedule from queue or set to null.
+     */
+    private void checkRunningProcessStatus() {
+        // Process is done. Reschedule from queue.
+        if (runningProcess.isComplete()) {
+            runningProcess = null;
+
+            // Max quanta reached. Run only previously ran processes.
+            if (maxQuantaReached) {
+                for (int i = 0; i < queuedProcesses.size(); i++) {
+                    Process queuedProcess = queuedProcesses.remove(0);
+
+                    if (queuedProcess.hasBeenRun()) {
+                        runningProcess = queuedProcess;
+                        break;
+                    }
+                }
+            } else if (!queuedProcesses.isEmpty()) {
+                // Fetch process from queue if not empty.
+                runningProcess = queuedProcesses.remove(0);
+            }
+
+            processedCount++;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "";
+    }
+
+    public class SRTComparator implements Comparator<Process> {
+
+        @Override
+        public int compare(Process o1, Process o2) {
             if (o1.getServiceTime() < o2.getServiceTime()) return -1;
             if (o1.getServiceTime() > o2.getServiceTime()) return 1;
             return 0;
-        });
-    }
-
-    private void checkProcessStatus() {
-        if (currentProcess.isComplete()) {
-            if (!queuedProcesses.isEmpty()) {
-                currentProcess = queuedProcesses.remove(0);
-            } else {
-                currentProcess = null;
-            }
         }
     }
 }

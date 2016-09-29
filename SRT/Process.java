@@ -1,5 +1,5 @@
 /**
- * Created by Jaylan Tse on 9/27/2016.
+ * Process
  */
 public class Process implements Comparable<Process> {
 
@@ -7,12 +7,15 @@ public class Process implements Comparable<Process> {
     private double serviceTime;
     private int priority;
     private char id;
+    private boolean hasBeenRun;
 
     public Process(int arrivalTime, double serviceTime, int priority, char id) {
         this.arrivalTime = arrivalTime;
         this.serviceTime = serviceTime;
         this.priority = priority;
         this.id = id;
+
+        hasBeenRun = false;
     }
 
     public int getArrivalTime() {
@@ -29,10 +32,15 @@ public class Process implements Comparable<Process> {
 
     public void decrementServiceTime() {
         serviceTime--;
+        hasBeenRun = true;
     }
 
     public boolean isComplete() {
         return serviceTime <= 0;
+    }
+
+    public boolean hasBeenRun() {
+        return hasBeenRun;
     }
 
     @Override
