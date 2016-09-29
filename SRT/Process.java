@@ -31,34 +31,64 @@ public class Process implements Comparable<Process> {
         waitTime = 0;
     }
 
+    /**
+     * Gets the arrival time to scheduler.
+     * @return the arrival time
+     */
     public int getArrivalTime() {
         return arrivalTime;
     }
 
+    /**
+     * Gets the service time left.
+     * @return the remaining service time
+     */
     public double getServiceTime() {
         return serviceTime;
     }
 
+    /**
+     * Gets the id of the process.
+     * @return the process id
+     */
     public char getId() {
         return id;
     }
 
+    /**
+     * Decrements the service time by 1 quanta.
+     */
     public void decrementServiceTime() {
         serviceTime--;
     }
 
+    /**
+     * Increments the wait time by 1 quanta.
+     */
     public void incrementWaitTime() {
         waitTime++;
     }
 
+    /**
+     * Gets the wait time in quanta.
+     * @return the wait time in quanta
+     */
     public int getWaitTime() {
         return waitTime;
     }
 
+    /**
+     * Gets the start time of the process in quanta.
+     * @return the start time in quanta
+     */
     public int getStartTime() {
         return startTime;
     }
 
+    /**
+     * Sets the start time of the process in quanta.
+     * @param time the start time in quanta
+     */
     public void setStartTime(int time) {
         if (!hasBeenRun) {
             startTime = time;
@@ -66,18 +96,34 @@ public class Process implements Comparable<Process> {
         hasBeenRun = true;
     }
 
+    /**
+     * Gets the end time of the process in quanta.
+     * @return the end time in quanta
+     */
     public int getEndTime() {
         return endTime;
     }
 
+    /**
+     * Sets the end time of the process in quanta.
+     * @param endTime the end time
+     */
     public void setEndTime(int endTime) {
         this.endTime = endTime;
     }
 
+    /**
+     * Whether or not the process has had CPU time before.
+     * @return if the process has been ran before
+     */
     public boolean hasBeenRun() {
         return hasBeenRun;
     }
 
+    /**
+     * Check if the process is complete.
+     * @return if the process is complete
+     */
     public boolean isComplete() {
         return serviceTime <= 0;
     }
