@@ -1,0 +1,804 @@
+Shortest Remaining Time
+
+RUN: 1
+
+ID: W
+Arrival: 1
+Service: 2.3
+Priority: 4
+
+ID: D
+Arrival: 8
+Service: 6.3
+Priority: 2
+
+ID: ^
+Arrival: 9
+Service: 0.4
+Priority: 3
+
+ID: Z
+Arrival: 12
+Service: 9.9
+Priority: 2
+
+ID: O
+Arrival: 13
+Service: 0.3
+Priority: 3
+
+ID: Q
+Arrival: 15
+Service: 3.1
+Priority: 4
+
+ID: T
+Arrival: 15
+Service: 4.9
+Priority: 4
+
+ID: Y
+Arrival: 20
+Service: 8.0
+Priority: 4
+
+ID: G
+Arrival: 21
+Service: 4.4
+Priority: 3
+
+ID: \
+Arrival: 21
+Service: 7.8
+Priority: 4
+
+ID: F
+Arrival: 26
+Service: 1.5
+Priority: 3
+
+ID: S
+Arrival: 28
+Service: 4.0
+Priority: 3
+
+ID: C
+Arrival: 34
+Service: 1.3
+Priority: 3
+
+ID: U
+Arrival: 36
+Service: 8.5
+Priority: 1
+
+ID: B
+Arrival: 37
+Service: 4.3
+Priority: 1
+
+ID: L
+Arrival: 47
+Service: 7.6
+Priority: 2
+
+ID: ]
+Arrival: 48
+Service: 6.4
+Priority: 4
+
+ID: X
+Arrival: 59
+Service: 5.0
+Priority: 2
+
+ID: V
+Arrival: 65
+Service: 1.1
+Priority: 4
+
+ID: I
+Arrival: 67
+Service: 3.5
+Priority: 4
+
+ID: E
+Arrival: 75
+Service: 5.1
+Priority: 1
+
+ID: M
+Arrival: 75
+Service: 4.5
+Priority: 3
+
+ID: A
+Arrival: 76
+Service: 3.8
+Priority: 2
+
+ID: H
+Arrival: 77
+Service: 6.8
+Priority: 4
+
+ID: P
+Arrival: 81
+Service: 0.3
+Priority: 3
+
+ID: [
+Arrival: 82
+Service: 4.3
+Priority: 4
+
+ID: K
+Arrival: 84
+Service: 8.7
+Priority: 4
+
+ID: N
+Arrival: 85
+Service: 7.1
+Priority: 4
+
+ID: R
+Arrival: 91
+Service: 8.5
+Priority: 4
+
+ID: J
+Arrival: 98
+Service: 2.2
+Priority: 2
+
+WWWD^DDDODDDQQQQGGGGGFFSSSSTTCCTTTBBBBB\\\\\\\\]]]]]]]XXXXXLVVIIIILLLLLLLAAAPA[[[[[MMMMMEEEEEEJJJ
+
+Avg wait: 4.826087
+Avg response: 3.652174
+Avg turnaround: 9.043478
+Throughput: 23
+
+RUN: 2
+
+ID: N
+Arrival: 5
+Service: 5.0
+Priority: 3
+
+ID: ]
+Arrival: 10
+Service: 3.7
+Priority: 4
+
+ID: L
+Arrival: 11
+Service: 1.9
+Priority: 4
+
+ID: K
+Arrival: 19
+Service: 0.6
+Priority: 2
+
+ID: \
+Arrival: 22
+Service: 9.3
+Priority: 4
+
+ID: P
+Arrival: 27
+Service: 8.5
+Priority: 1
+
+ID: Y
+Arrival: 39
+Service: 9.7
+Priority: 1
+
+ID: [
+Arrival: 45
+Service: 4.7
+Priority: 4
+
+ID: A
+Arrival: 50
+Service: 0.2
+Priority: 3
+
+ID: T
+Arrival: 53
+Service: 7.1
+Priority: 4
+
+ID: V
+Arrival: 57
+Service: 9.5
+Priority: 4
+
+ID: H
+Arrival: 62
+Service: 8.0
+Priority: 3
+
+ID: G
+Arrival: 63
+Service: 3.7
+Priority: 4
+
+ID: J
+Arrival: 69
+Service: 0.7
+Priority: 4
+
+ID: C
+Arrival: 70
+Service: 0.8
+Priority: 4
+
+ID: O
+Arrival: 73
+Service: 6.2
+Priority: 3
+
+ID: W
+Arrival: 84
+Service: 1.9
+Priority: 1
+
+ID: F
+Arrival: 85
+Service: 5.7
+Priority: 1
+
+ID: E
+Arrival: 86
+Service: 1.4
+Priority: 3
+
+ID: X
+Arrival: 87
+Service: 0.5
+Priority: 4
+
+ID: ^
+Arrival: 87
+Service: 2.7
+Priority: 2
+
+ID: M
+Arrival: 88
+Service: 9.5
+Priority: 1
+
+ID: B
+Arrival: 90
+Service: 0.1
+Priority: 2
+
+ID: U
+Arrival: 90
+Service: 9.8
+Priority: 1
+
+ID: I
+Arrival: 92
+Service: 1.5
+Priority: 2
+
+ID: D
+Arrival: 93
+Service: 2.6
+Priority: 2
+
+ID: S
+Arrival: 94
+Service: 7.9
+Priority: 2
+
+ID: Q
+Arrival: 96
+Service: 8.2
+Priority: 2
+
+ID: R
+Arrival: 99
+Service: 1.5
+Priority: 2
+
+ID: Z
+Arrival: 99
+Service: 8.9
+Priority: 1
+
+NNNNN]LL]]]K\\\\\\\\\\PPPPPPPPPYYYY[[[[[AYYYYYYTTTTTTTTGGGGJCHHHHHHHHOOOOOOOEEXWBWIIDDD^^^RR
+
+Avg wait: 2.391304
+Avg response: 1.565217
+Avg turnaround: 6.391304
+Throughput: 23
+
+RUN: 3
+
+ID: W
+Arrival: 3
+Service: 8.7
+Priority: 3
+
+ID: P
+Arrival: 4
+Service: 9.8
+Priority: 1
+
+ID: \
+Arrival: 4
+Service: 9.0
+Priority: 3
+
+ID: N
+Arrival: 8
+Service: 6.7
+Priority: 1
+
+ID: G
+Arrival: 10
+Service: 8.1
+Priority: 1
+
+ID: J
+Arrival: 10
+Service: 4.2
+Priority: 3
+
+ID: I
+Arrival: 14
+Service: 6.0
+Priority: 1
+
+ID: U
+Arrival: 15
+Service: 4.0
+Priority: 3
+
+ID: F
+Arrival: 19
+Service: 6.9
+Priority: 3
+
+ID: ]
+Arrival: 20
+Service: 9.5
+Priority: 3
+
+ID: Q
+Arrival: 23
+Service: 6.6
+Priority: 4
+
+ID: [
+Arrival: 31
+Service: 9.6
+Priority: 2
+
+ID: C
+Arrival: 32
+Service: 5.8
+Priority: 3
+
+ID: Z
+Arrival: 34
+Service: 3.5
+Priority: 1
+
+ID: L
+Arrival: 43
+Service: 7.7
+Priority: 3
+
+ID: T
+Arrival: 45
+Service: 6.7
+Priority: 3
+
+ID: V
+Arrival: 45
+Service: 5.8
+Priority: 3
+
+ID: ^
+Arrival: 46
+Service: 4.4
+Priority: 4
+
+ID: M
+Arrival: 50
+Service: 3.1
+Priority: 3
+
+ID: E
+Arrival: 57
+Service: 7.4
+Priority: 1
+
+ID: B
+Arrival: 69
+Service: 0.3
+Priority: 2
+
+ID: K
+Arrival: 76
+Service: 3.5
+Priority: 2
+
+ID: R
+Arrival: 78
+Service: 9.7
+Priority: 3
+
+ID: H
+Arrival: 81
+Service: 7.1
+Priority: 3
+
+ID: D
+Arrival: 83
+Service: 8.9
+Priority: 1
+
+ID: S
+Arrival: 90
+Service: 4.2
+Priority: 2
+
+ID: Y
+Arrival: 90
+Service: 0.9
+Priority: 1
+
+ID: X
+Arrival: 92
+Service: 3.9
+Priority: 2
+
+ID: A
+Arrival: 98
+Service: 5.8
+Priority: 1
+
+ID: O
+Arrival: 99
+Service: 6.5
+Priority: 4
+
+WWWWWWWWWJJJJJUUUUIIIIIIQQQQQQQZZZZCCCCCCNN^^^^^MMMMNNNNNVVVVVVTTTBTTTTFFKKKKFFFFFHHHHHYHHHXXXXSSSSS
+
+Avg wait: 9.368421
+Avg response: 8.368421
+Avg turnaround: 14.631579
+Throughput: 19
+
+RUN: 4
+
+ID: O
+Arrival: 2
+Service: 3.5
+Priority: 3
+
+ID: T
+Arrival: 2
+Service: 7.8
+Priority: 3
+
+ID: D
+Arrival: 4
+Service: 9.3
+Priority: 2
+
+ID: G
+Arrival: 5
+Service: 2.1
+Priority: 2
+
+ID: \
+Arrival: 7
+Service: 3.1
+Priority: 4
+
+ID: E
+Arrival: 20
+Service: 8.5
+Priority: 2
+
+ID: S
+Arrival: 24
+Service: 4.2
+Priority: 4
+
+ID: P
+Arrival: 27
+Service: 3.8
+Priority: 3
+
+ID: ^
+Arrival: 36
+Service: 10.0
+Priority: 4
+
+ID: L
+Arrival: 45
+Service: 4.6
+Priority: 2
+
+ID: Q
+Arrival: 52
+Service: 0.7
+Priority: 1
+
+ID: U
+Arrival: 53
+Service: 2.8
+Priority: 4
+
+ID: K
+Arrival: 54
+Service: 7.3
+Priority: 3
+
+ID: W
+Arrival: 55
+Service: 8.3
+Priority: 3
+
+ID: [
+Arrival: 58
+Service: 10.0
+Priority: 4
+
+ID: F
+Arrival: 62
+Service: 1.8
+Priority: 4
+
+ID: C
+Arrival: 68
+Service: 0.7
+Priority: 4
+
+ID: ]
+Arrival: 68
+Service: 8.6
+Priority: 1
+
+ID: B
+Arrival: 70
+Service: 0.3
+Priority: 2
+
+ID: R
+Arrival: 75
+Service: 4.3
+Priority: 1
+
+ID: A
+Arrival: 77
+Service: 6.7
+Priority: 4
+
+ID: H
+Arrival: 77
+Service: 7.4
+Priority: 3
+
+ID: I
+Arrival: 78
+Service: 3.9
+Priority: 4
+
+ID: V
+Arrival: 78
+Service: 2.5
+Priority: 2
+
+ID: M
+Arrival: 80
+Service: 9.4
+Priority: 2
+
+ID: X
+Arrival: 80
+Service: 2.1
+Priority: 4
+
+ID: N
+Arrival: 82
+Service: 8.0
+Priority: 2
+
+ID: Y
+Arrival: 89
+Service: 8.5
+Priority: 3
+
+ID: J
+Arrival: 93
+Service: 5.9
+Priority: 4
+
+ID: Z
+Arrival: 93
+Service: 3.7
+Priority: 3
+
+OOOOGGG\\\\TTTTTTTTEEESSSSSPPPPEEEEEEDDDDDDDDDDLLLQLLUUUKKKKFFKKKKCWBWWWWWWWWVVVXXXIIIIRRRRRZZZZJJJJJJ
+
+Avg wait: 5.409091
+Avg response: 4.772727
+Avg turnaround: 10.045455
+Throughput: 22
+
+RUN: 5
+
+ID: [
+Arrival: 1
+Service: 7.4
+Priority: 1
+
+ID: \
+Arrival: 1
+Service: 5.5
+Priority: 1
+
+ID: B
+Arrival: 2
+Service: 2.4
+Priority: 3
+
+ID: N
+Arrival: 5
+Service: 6.7
+Priority: 1
+
+ID: P
+Arrival: 13
+Service: 4.9
+Priority: 4
+
+ID: O
+Arrival: 17
+Service: 8.9
+Priority: 3
+
+ID: K
+Arrival: 18
+Service: 2.3
+Priority: 1
+
+ID: T
+Arrival: 19
+Service: 5.9
+Priority: 2
+
+ID: C
+Arrival: 21
+Service: 3.5
+Priority: 3
+
+ID: J
+Arrival: 22
+Service: 8.3
+Priority: 2
+
+ID: H
+Arrival: 24
+Service: 9.8
+Priority: 1
+
+ID: M
+Arrival: 29
+Service: 1.1
+Priority: 3
+
+ID: W
+Arrival: 32
+Service: 6.3
+Priority: 1
+
+ID: A
+Arrival: 34
+Service: 6.3
+Priority: 3
+
+ID: V
+Arrival: 34
+Service: 3.2
+Priority: 1
+
+ID: F
+Arrival: 37
+Service: 4.5
+Priority: 2
+
+ID: E
+Arrival: 45
+Service: 2.3
+Priority: 1
+
+ID: S
+Arrival: 57
+Service: 7.7
+Priority: 4
+
+ID: R
+Arrival: 66
+Service: 5.5
+Priority: 4
+
+ID: X
+Arrival: 76
+Service: 1.5
+Priority: 3
+
+ID: I
+Arrival: 81
+Service: 0.8
+Priority: 3
+
+ID: D
+Arrival: 83
+Service: 6.3
+Priority: 1
+
+ID: Y
+Arrival: 84
+Service: 1.7
+Priority: 3
+
+ID: Q
+Arrival: 90
+Service: 4.1
+Priority: 3
+
+ID: L
+Arrival: 91
+Service: 7.7
+Priority: 3
+
+ID: U
+Arrival: 92
+Service: 5.5
+Priority: 3
+
+ID: ]
+Arrival: 94
+Service: 1.0
+Priority: 3
+
+ID: ^
+Arrival: 96
+Service: 7.6
+Priority: 3
+
+ID: G
+Arrival: 97
+Service: 8.7
+Priority: 3
+
+ID: Z
+Arrival: 99
+Service: 9.0
+Priority: 1
+
+\BBB\\\\\NNNNNNNPKKKCCCCPPPPMMTTTTTTVVVVFFFFFEEEWWWWWWWAAAAAAA[[[[[[[[RRRRRRXXSSISSYYSSSSQQQQQ]UUUUUUDDDDDDD
+
+Avg wait: 8.478261
+Avg response: 7.304348
+Avg turnaround: 13.173913
+Throughput: 23
+
+
+TOTAL AVG
+
+Wait: 6.0946328
+Response: 5.1325774
+Turnaround: 10.6571458
+Throughput: 22
