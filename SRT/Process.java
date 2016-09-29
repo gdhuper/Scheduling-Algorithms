@@ -58,6 +58,7 @@ public class Process implements Comparable<Process> {
     /**
      * Decrements the service time by 1 quanta and
      * sets the start time if not ran before.
+     * @param time the current run time in quanta
      */
     public void executeProcess(int time) {
         serviceTime--;
