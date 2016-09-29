@@ -1,3 +1,6 @@
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Random;
 
 
@@ -26,7 +29,7 @@ public class Process {
 	
 	
 	
-	public Process generateProcess(String name)
+	public static Process generateProcess(String name)
 	{
 		Random random = new Random();
         float arrivalTime =  nextRandomFloat(MIN_ARRIVAL_TIME, MAX_ARRIVAL_TIME); 
@@ -38,12 +41,40 @@ public class Process {
         return pro;
 	}
 	
-	public float nextRandomFloat(float min, float max)
+	public static float nextRandomFloat(float min, float max)
 	{
 		Random random = new Random();
 		float temp = min + random.nextFloat() * (max - min);
 		return temp;
 	}
+	
+	
+	/**
+	 * Sorts the process list by arrival time
+	 * @param list the process list
+	 */
+	public static void sortByAt(List<Process> list)
+	{
+		Collections.sort(list, new Comparator<Process>(){
+			   public int compare(Process p1, Process p2){
+				      return (int) (p1.getArrivalTime() - p2.getArrivalTime());
+				   }
+				});
+	}
+	
+	/**
+	 * Sorts the process list by priority
+	 * @param list the process list 
+	 */
+	public static void sortByPriority(List<Process> list)
+	{
+		Collections.sort(list, new Comparator<Process>(){
+			   public int compare(Process p1, Process p2){
+				      return (p1.getPriority() - p2.getPriority());
+				   }
+				});
+	}
+
 
 	public String getName() {
 		return name;
@@ -82,6 +113,18 @@ public class Process {
 
 	public void setPriority(int priority) {
 		this.priority = priority;
+	}
+	
+	public String toString()
+	{
+		return "ProcessName: " + this.getName() + " Arrival Time: " + this.getArrivalTime() + " RunTime: " + this.getExpRunTime() + " Priority: " + this.getPriority();
+	}
+	
+	
+	public static void main(String[] args)
+	{
+		Process temp = generateProcess("P");
+		System.out.println(generateProcess("p").toString());
 	}
 
 }
