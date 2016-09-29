@@ -61,7 +61,8 @@ public class Process {
 	{
 		Collections.sort(list, new Comparator<Process>(){
 			   public int compare(Process p1, Process p2){
-				      return (int) (p1.getArrivalTime() - p2.getArrivalTime());
+				   
+				      return 	Float.compare(p1.getArrivalTime(), p2.getArrivalTime());
 				   }
 				});
 	}
@@ -74,7 +75,7 @@ public class Process {
 	{
 		Collections.sort(list, new Comparator<Process>(){
 			   public int compare(Process p1, Process p2){
-				      return (p1.getPriority() - p2.getPriority());
+				      return Float.compare(p1.getPriority(), p2.getPriority());
 				   }
 				});
 	}
@@ -133,6 +134,7 @@ public class Process {
 	{
 		return "ProcessName: " + this.getName() + " Arrival Time: " + this.getArrivalTime() + " RunTime: " + this.getExpRunTime() + " Priority: " + this.getPriority();
 	}
+
 	
 	
 	public static void main(String[] args)
