@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -33,8 +34,11 @@ public class Process {
 	{
 		Random random = new Random();
         float arrivalTime =  nextRandomFloat(MIN_ARRIVAL_TIME, MAX_ARRIVAL_TIME); 
-        float runTime = nextRandomFloat(MIN_RUNTIME, MAX_RUNTIME);
         
+        arrivalTime = formatDecimal(arrivalTime, 2);
+        float runTime = nextRandomFloat(MIN_RUNTIME, MAX_RUNTIME);
+        runTime = formatDecimal(runTime, 2);
+
         int priority = random.nextInt(4) + 1;
         
         Process pro = new Process(name, arrivalTime, runTime, priority);
@@ -74,6 +78,16 @@ public class Process {
 				   }
 				});
 	}
+	
+	public static float formatDecimal(float d, int decimalPlace) {
+
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);       
+
+        return bd.floatValue();
+
+    }
 
 
 	public String getName() {
