@@ -11,6 +11,7 @@ public class Process {
 	private float arrivalTime;
 	private float expRunTime;
 	private int priority;
+	private boolean finished;
 	public static final float MIN_ARRIVAL_TIME = 99;
 	public static final float MAX_ARRIVAL_TIME = 0;
 	public static final float MIN_RUNTIME = (float) 0.1;
@@ -19,12 +20,13 @@ public class Process {
 	public static final int MAX_PRIORITY = 4;
 	
 	
-	public Process(String name, float arrivalTime, float expRunTime, int priority)
+	public Process(String name, float arrivalTime, float expRunTime, int priority, boolean finished)
 	{
 		this.name = name;
 		this.arrivalTime = arrivalTime;
 		this.expRunTime = expRunTime;
 		this.priority = priority;
+		this.finished = finished;
 	}
 
 	
@@ -41,10 +43,24 @@ public class Process {
 
         int priority = random.nextInt(4) + 1;
         
-        Process pro = new Process(name, arrivalTime, runTime, priority);
+        Process pro = new Process(name, arrivalTime, runTime, priority, false);
         return pro;
 	}
 	
+	public boolean isFinished() {
+		return finished;
+	}
+
+
+
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
+
+
+
+
 	public static float nextRandomFloat(float min, float max)
 	{
 		Random random = new Random();
